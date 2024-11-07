@@ -11,30 +11,34 @@ redirect_from:
 
 Education
 ======
-* B.S. in GitHub, GitHub University, 2012
-* M.S. in Jekyll, GitHub University, 2014
-* Ph.D in Version Control Theory, GitHub University, 2018 (expected)
+* B.S. in Automation, Xi'an Jiao Tong University, 2022
+* M.S. in Robotics, University of Pennsylvania, 2025 (expected)
 
 Work experience
 ======
-* Summer 2015: Research Assistant
-  * Github University
+* June 2024 - Aug 2024: Research Assistant
+  * Stanford University
   * Duties included: Tagging issues
-  * Supervisor: Professor Git
+  * Supervisor: Professor Monroe Kennedy III
 
-* Fall 2015: Research Assistant
-  * Github University
+* Aug 2022 - July 2023: Research Assistant
+  * South University of Science and Technilogy
+  * Duties included: Merging pull requests
+  * Supervisor: Professor Jiankun Wang
+
+* Sep 2021 - July 2022: Algorithm Intern
+  * MEGVII Co. Ltd
   * Duties included: Merging pull requests
   * Supervisor: Professor Hub
   
 Skills
 ======
-* Skill 1
-* Skill 2
-  * Sub-skill 2.1
-  * Sub-skill 2.2
-  * Sub-skill 2.3
-* Skill 3
+* Robotics
+  * ROS
+  * Moveit!
+* Vision & Deep Learning
+  * Pytorch
+  * CUDA 
 
 Publications
 ======
