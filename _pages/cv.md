@@ -11,8 +11,8 @@ redirect_from:
 
 Education
 ======
-* B.S. in Automation, Xi'an Jiao Tong University, 2022
 * M.S. in Robotics, University of Pennsylvania, 2025 (expected)
+* B.S. in Automation, Xi'an Jiao Tong University, 2022
 
 Work experience
 ======
