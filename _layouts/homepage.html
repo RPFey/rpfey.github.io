@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ site.author.name }}</title>
+  <meta name="description" content="{{ site.author.name }}'s academic homepage">
+  <link rel="icon" href="{{ '/images/profile.png' | relative_url }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a1a;
+      --muted: #666666;
+      --link: #1772d0;
+      --link-hover: #f09228;
+      --rule: #e5e5e5;
+      --placeholder: #f2f4f7;
+      --placeholder-text: #8a94a3;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #16181c;
+        --text: #e6e6e6;
+        --muted: #9aa0a6;
+        --link: #6cb0ff;
+        --link-hover: #f5a54a;
+        --rule: #2c2f35;
+        --placeholder: #22252b;
+        --placeholder-text: #7d8590;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Lato', Verdana, Helvetica, sans-serif;
+      font-size: 15px;
+      line-height: 1.55;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover, a:focus { color: var(--link-hover); }
+    .page { max-width: 820px; margin: 0 auto; padding: 32px 16px 48px; }
+
+    .intro { display: flex; gap: 32px; align-items: center; }
+    .intro-text { flex: 1 1 60%; min-width: 0; }
+    .intro-photo { flex: 0 0 34%; }
+    .intro-photo img { width: 100%; border-radius: 50%; display: block; aspect-ratio: 1; object-fit: cover; }
+    .name { font-size: 32px; font-weight: 400; text-align: center; margin: 0 0 16px; }
+    .intro-text p { margin: 0 0 12px; }
+    .contact { text-align: center; margin-top: 16px; }
+    .contact a { white-space: nowrap; }
+    .sep { color: var(--muted); margin: 0 6px; }
+
+    h2 { font-size: 22px; font-weight: 400; margin: 40px 0 8px; }
+    .section-note { color: var(--muted); margin: 0 0 12px; }
+
+    .pub { display: flex; gap: 24px; padding: 18px 0; border-top: 1px solid var(--rule); }
+    .pub:first-of-type { border-top: none; }
+    .pub-teaser { flex: 0 0 180px; }
+    .pub-teaser img { width: 100%; display: block; border-radius: 4px; }
+    .pub-teaser .placeholder {
+      width: 100%; aspect-ratio: 4 / 3; border-radius: 4px;
+      background: var(--placeholder); color: var(--placeholder-text);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 700; letter-spacing: 0.04em;
+    }
+    .pub-body { flex: 1; min-width: 0; }
+    .pub-title { font-weight: 700; font-size: 16px; }
+    .pub-authors { margin-top: 2px; }
+    .pub-authors b { font-weight: 700; }
+    .pub-venue { margin-top: 2px; }
+    .pub-links { margin-top: 4px; }
+    .pub-desc { margin: 8px 0 0; }
+
+    .misc p { margin: 0 0 12px; }
+    footer { margin-top: 48px; text-align: right; font-size: 13px; color: var(--muted); }
+    footer a { color: var(--muted); text-decoration: underline; }
+
+    @media (max-width: 640px) {
+      .intro { flex-direction: column-reverse; gap: 20px; }
+      .intro-photo { width: 55%; flex-basis: auto; }
+      .pub { flex-direction: column; gap: 10px; }
+      .pub-teaser { flex-basis: auto; width: 100%; max-width: 320px; }
+      .pub-teaser .placeholder { aspect-ratio: 3 / 1; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <section class="intro">
+    <div class="intro-text">
+      <h1 class="name">{{ site.author.name }}</h1>
+      {{ content }}
+      <div class="contact">
+        {% if site.author.email %}<a href="mailto:{{ site.author.email }}">Email</a>{% endif %}
+        {% if page.cv_url %}<span class="sep">/</span><a href="{{ page.cv_url | relative_url }}">CV</a>{% endif %}
+        {% if site.author.googlescholar %}<span class="sep">/</span><a href="{{ site.author.googlescholar }}">Google Scholar</a>{% endif %}
+        {% if site.author.github %}<span class="sep">/</span><a href="https://github.com/{{ site.author.github }}">GitHub</a>{% endif %}
+        {% if site.author.linkedin %}<span class="sep">/</span><a href="https://www.linkedin.com/in/{{ site.author.linkedin }}">LinkedIn</a>{% endif %}
+      </div>
+    </div>
+    <div class="intro-photo">
+      <a href="{{ '/images/' | append: site.author.avatar | relative_url }}"><img src="{{ '/images/' | append: site.author.avatar | relative_url }}" alt="Photo of {{ site.author.name }}"></a>
+    </div>
+  </section>
+
+  {% if page.research %}
+  <h2>Research</h2>
+  {{ page.research | markdownify }}
+  {% endif %}
+
+  <h2>Selected Publications</h2>
+  <p class="section-note">* equal contribution. See <a href="{{ site.author.googlescholar }}">Google Scholar</a> for the full list.</p>
+  {% assign pubs = site.publications | sort: "date" | reverse %}
+  {% for pub in pubs %}
+  {% unless pub.teaser %}{% continue %}{% endunless %}
+  {% assign primary = pub.project | default: pub.paperurl | default: pub.arxiv %}
+  <div class="pub">
+    <div class="pub-teaser">
+      {% if pub.teaser %}
+        {% if pub.teaser contains "://" %}{% assign teaser_src = pub.teaser %}{% else %}{% assign teaser_src = '/images/' | append: pub.teaser | relative_url %}{% endif %}
+        <img src="{{ teaser_src }}" alt="" loading="lazy">
+      {% else %}
+        <div class="placeholder">{{ pub.venue_short | default: "Paper" }}</div>
+      {% endif %}
+    </div>
+    <div class="pub-body">
+      <div class="pub-title">
+        {% if primary %}<a href="{{ primary }}">{{ pub.title }}</a>{% else %}{{ pub.title }}{% endif %}
+      </div>
+      {% if pub.authors %}<div class="pub-authors">{{ pub.authors }}</div>{% endif %}
+      <div class="pub-venue"><em>{{ pub.venue_short | default: pub.venue }}</em>, {{ pub.date | date: "%Y" }}{% if pub.award %} <strong>({{ pub.award }})</strong>{% endif %}</div>
+      {% capture link_row %}{% if pub.project %}<a href="{{ pub.project }}">project page</a> / {% endif %}{% if pub.paperurl %}<a href="{{ pub.paperurl }}">paper</a> / {% endif %}{% if pub.arxiv %}<a href="{{ pub.arxiv }}">arXiv</a> / {% endif %}{% if pub.code %}<a href="{{ pub.code }}">code</a> / {% endif %}{% if pub.video %}<a href="{{ pub.video }}">video</a> / {% endif %}{% if pub.dataset %}<a href="{{ pub.dataset }}">dataset</a> / {% endif %}{% endcapture %}
+      {% assign link_row = link_row | strip %}
+      {% if link_row != "" %}<div class="pub-links">{{ link_row | remove_last: " /" }}</div>{% endif %}
+      {% if pub.description %}<p class="pub-desc">{{ pub.description }}</p>{% endif %}
+    </div>
+  </div>
+  {% endfor %}
+
+  {% if page.misc %}
+  <h2>Misc</h2>
+  <div class="misc">{{ page.misc | markdownify }}</div>
+  {% endif %}
+
+  <footer>
+    Template adapted from <a href="https://github.com/jonbarron/website">Jon Barron's website</a>.
+  </footer>
+</div>
+</body>
+</html>
